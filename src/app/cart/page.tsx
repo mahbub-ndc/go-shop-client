@@ -10,19 +10,23 @@ const Cart = () => {
   const products = useAppSelector((store) => store.cart.products);
   //console.log(products);
   return (
-    <div className="container mt-10 mx-auto">
-      <div>
+    <>
+      <div className="container mt-10 mx-auto">
         <div className="space-y-5 lg:mt-0 mt-5">
           {products.length ? (
             <>
               <div className="flex  justify-evenly">
                 <div className="w-2/3">
                   {products.map((product: any) => (
-                    <CartDetails key={product.id} product={product} />
+                    <CartDetails
+                      key={product.id}
+                      product={product}
+                      suppressHydrationWarning={true}
+                    />
                   ))}
                 </div>
 
-                <div>
+                <div className="order-summary">
                   <OrderSummary />
                 </div>
               </div>
@@ -44,7 +48,7 @@ const Cart = () => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

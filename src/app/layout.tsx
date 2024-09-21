@@ -6,7 +6,8 @@ import Footer from "@/components/shared/Footer";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
-import Providers from "@/lib/Providers";
+
+import ReduxProvider from "@/Redux/redux-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +34,7 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession(authOptions);
   return (
-    <Providers>
+    <ReduxProvider>
       <html lang="en">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -43,6 +44,6 @@ export default async function RootLayout({
           <Footer />
         </body>
       </html>
-    </Providers>
+    </ReduxProvider>
   );
 }

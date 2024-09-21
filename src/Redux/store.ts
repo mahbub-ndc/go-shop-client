@@ -18,7 +18,10 @@ const createNoopStorage = () => {
   };
 };
 
-const storage = createWebStorage("local") || createNoopStorage();
+const storage =
+  typeof window !== "undefined"
+    ? createWebStorage("local")
+    : createNoopStorage();
 
 const authPersistConfig = {
   key: "cart",
