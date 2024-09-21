@@ -26,7 +26,14 @@ const storage =
 const authPersistConfig = {
   key: "cart",
   storage: storage,
-  whitelist: ["products"],
+  whitelist: [
+    "products",
+    "selectedItems",
+    "totalPrice",
+    "tax",
+    "taxRate",
+    "grandTotal",
+  ],
 };
 
 const persistedReducer = persistReducer(authPersistConfig, cartReducer);

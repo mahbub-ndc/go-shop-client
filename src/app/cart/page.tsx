@@ -18,7 +18,11 @@ const Cart = () => {
 
   // Show loading or fallback during SSR
   if (!isMounted) {
-    return <div>Loading...</div>; // Or a more styled placeholder/fallback
+    return (
+      <div className="flex justify-center mt-10">
+        <span className="loading loading-spinner text-success"></span>
+      </div>
+    ); // Or a more styled placeholder/fallback
   }
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { clearCart } from "@/Redux/Features/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/Redux/hook";
 import { CreditCard, Trash2 } from "lucide-react";
@@ -23,7 +24,7 @@ const OrderSummary = () => {
           Tax ({taxRate * 100}): ${tax.toFixed(3)}
         </p>
         <h3 className="text-x font-semibold text-dark mt-4">
-          Grand Total ${grandTotal.toFixed(3)}
+          Sub Total ${grandTotal.toFixed(3)}
         </h3>
       </div>
       <div className="px-4 pb-6">
