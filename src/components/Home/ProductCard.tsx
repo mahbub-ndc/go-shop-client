@@ -1,10 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-
+import { addToCart } from "@/Redux/Features/cartSlice";
+import { useAppDispatch } from "@/Redux/hook";
 import Image from "next/image";
 import React from "react";
 
 const ProductCart = ({ product }: any) => {
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = (product: any) => {
+    dispatch(addToCart(product));
+  };
   const { name, imageUrl, price, category } = product;
   return (
     <div className="card bg-base-100 w-96 shadow-xl mb-10">
@@ -18,7 +24,7 @@ const ProductCart = ({ product }: any) => {
         </h2>
         <div>{category}</div>
         <div className="card-actions justify-end">
-          <button>
+          <button onClick={() => handleAddToCart(product)}>
             <div className="badge badge-outline">Add to Cart</div>
           </button>
           <button>

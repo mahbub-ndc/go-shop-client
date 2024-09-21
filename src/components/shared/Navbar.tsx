@@ -1,11 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useAppSelector } from "@/Redux/store";
-import { ShoppingCart } from "lucide-react";
+import { signOut } from "next-auth/react";
+import logo from "../../assets/images/logo.png";
+import Image from "next/image";
 import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
 
-const Navbar = () => {
+import dynamic from "next/dynamic";
+import { useAppSelector } from "@/Redux/hook";
+
+const Navbar = ({ session }: { session: any }) => {
   const products = useAppSelector((store) => store.cart.products);
-  console.log(products);
+
+  //console.log(products.length);
+
   return (
     <div className="navbar bg-base-100  border-b  w-[90%] mx-auto">
       <div className="navbar-start">
@@ -35,15 +43,15 @@ const Navbar = () => {
             </li>
 
             <li>
-              <Link href="/about">About Us</Link>
+              <Link href="/shop">Shop</Link>
             </li>
             <li>
-              <Link href="/support">Support</Link>
+              <Link href="/cart">Cart</Link>
             </li>
           </ul>
         </div>
-        <Link href="/" className="btn btn-ghost text-xl">
-          NextAuth
+        <Link href="/" className="text-xl">
+          <Image src={logo} width={150} height={150} alt="logo" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -53,10 +61,11 @@ const Navbar = () => {
           </li>
 
           <li>
-            <Link href="/about">About Us</Link>
+            <Link href="/shop">Shop</Link>
           </li>
+
           <li>
-            <Link href="/support">Support</Link>
+            <Link href="/cart">Cart</Link>
           </li>
           <li>
             <Link href="/dashboard">Dashboard</Link>
@@ -72,23 +81,29 @@ const Navbar = () => {
             <ShoppingCart size={24} />
           </Link>
           <span className="rounded-full absolute top-[-10px] left-[20px] bg-green-700 text-white text-center size-[25px]">
-            0
+            {products?.length ? products.length : 0}
           </span>
         </div>
-
-        <button className="btn btn-error btn-outline text-white rounded-full px-5">
-          Logout
-        </button>
-
-        <Link
-          href="/login"
-          className="btn btn-accent btn-outline text-white rounded-full px-5"
-        >
-          Login
-        </Link>
+        {session?.user ? (
+          <>
+            <button
+              onClick={() => signOut()}
+              className="btn btn-error btn-outline text-white rounded-full px-5"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <Link
+            href="/login"
+            className="btn btn-accent btn-outline text-white rounded-full px-5"
+          >
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );
 };
 
-export default Navbar;
+export default dynamic(() => Promise.resolve(Navbar), { ssr: false });
