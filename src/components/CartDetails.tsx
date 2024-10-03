@@ -9,8 +9,9 @@ import React from "react";
 
 const CartDetails = ({ product }: any) => {
   const dispatch = useAppDispatch();
+
   const handleQuantity = (_id: string, type: string) => {
-    const payload = { type, _id };
+    const payload = { _id, type };
     dispatch(updateQuantity(payload));
   };
 

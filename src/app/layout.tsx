@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 
 import ReduxProvider from "@/Redux/redux-provider";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,6 +41,7 @@ export default async function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <Navbar session={session} />
+          <Toaster position="bottom-right" />
           {children}
           <Footer />
         </body>

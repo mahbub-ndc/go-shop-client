@@ -18,13 +18,13 @@ const OrderSummary = () => {
         <h1 className="text-3xl font-bold text-dark">Order Summary</h1>
         <p className="text-x text-dark">Added Items : {selectedItems}</p>
         <p className="text-x text-dark">
-          Total Price : ${totalPrice.toFixed(2)}
+          Total Price : ${Number(totalPrice).toFixed(2)}
         </p>
         <p className="text-x text-dark">
-          Tax ({taxRate * 100}): ${tax.toFixed(3)}
+          Tax ({taxRate * 100}): ${Number(tax).toFixed(3)}
         </p>
         <h3 className="text-x font-semibold text-dark mt-4">
-          Sub Total ${grandTotal.toFixed(3)}
+          Sub Total ${Number(grandTotal).toFixed(3)}
         </h3>
       </div>
       <div className="px-4 pb-6">

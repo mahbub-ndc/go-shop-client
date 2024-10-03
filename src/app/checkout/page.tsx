@@ -4,8 +4,11 @@ import { clearCart } from "@/Redux/Features/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/Redux/store";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 type FormValues = {
   email: string;
@@ -20,6 +23,8 @@ const CheckoutPage = () => {
   const products = useAppSelector((store) => store.cart.products);
   console.log(products);
 
+  const router = useRouter();
+
   const { tax, taxRate, grandTotal, totalPrice, selectedItems } =
     useAppSelector((store) => store.cart);
 
@@ -31,6 +36,13 @@ const CheckoutPage = () => {
 
   const onSubmit = async (data: FormValues) => {
     console.log(data);
+    if (products.length) {
+      toast.success("Your order has been placed successfully!");
+      router.push("/shop");
+    } else {
+      toast.error("Your cart is empty");
+    }
+
     dispatch(clearCart());
   };
 

@@ -2,17 +2,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
+import { useRegisterUserMutation } from "@/Redux/Features/auth/authApi";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export type UserData = {
-  username: string;
+  name: string;
   email: string;
   password: string;
 };
 
 const RegisterPage = () => {
+  const [registerUser] = useRegisterUserMutation();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -20,9 +26,13 @@ const RegisterPage = () => {
   } = useForm<UserData>();
 
   const onSubmit = async (data: UserData) => {
-    console.log(data);
-
     try {
+      const res = await registerUser(data);
+      if (res.data?.email) {
+        toast.success("User registered successfully!");
+        router.push("/login");
+      }
+      console.log(res);
     } catch (err: any) {
       console.error(err.message);
       throw new Error(err.message);
@@ -34,7 +44,7 @@ const RegisterPage = () => {
       <h1 className="text-center text-4xl mb-5">
         Register <span className="text-accent">Now</span>
       </h1>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         <div>
           <Image
             src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-135.jpg?t=st=1710081713~exp=1710085313~hmac=f637c194f1f143e63a84950cbf978997453777c872adf4aebbbecdaa445601a1&w=740"
@@ -45,7 +55,7 @@ const RegisterPage = () => {
           />
         </div>
 
-        <div className="card w-[70%] h-[70%] shadow-xl bg-base-100">
+        <div className="card md:w-[70%] md:h-[70%] shadow-xl bg-base-100">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body py-3">
             <div className="form-control">
               <label className="label">
@@ -53,7 +63,7 @@ const RegisterPage = () => {
               </label>
               <input
                 type="text"
-                {...register("username")}
+                {...register("name")}
                 placeholder="User Name"
                 className="input input-bordered"
                 required

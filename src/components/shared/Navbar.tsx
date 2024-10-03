@@ -12,7 +12,16 @@ import { useAppSelector } from "@/Redux/hook";
 const Navbar = ({ session }: { session: any }) => {
   const products = useAppSelector((store) => store.cart.products);
 
-  //console.log(products.length);
+  console.log(products.length);
+
+  // // const res = localStorage.getItem("token");
+  // // console.log(res);
+  // // const decoded = jwtDecode(res as string);
+  // // console.log(decoded);
+
+  // const signOut = () => {
+  //   localStorage.removeItem("token");
+  // };
 
   return (
     <div className="navbar bg-base-100  border-b  w-[90%] mx-auto">
@@ -81,10 +90,10 @@ const Navbar = ({ session }: { session: any }) => {
             <ShoppingCart size={24} />
           </Link>
           <span className="rounded-full absolute top-[-10px] left-[20px] bg-green-700 text-white text-center size-[25px]">
-            {products?.length ? products.length : 0}
+            {products?.length}
           </span>
         </div>
-        {session?.user ? (
+        {session ? (
           <>
             <button
               onClick={() => signOut()}

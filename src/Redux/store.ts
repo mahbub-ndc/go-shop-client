@@ -3,6 +3,7 @@ import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
 import cartReducer from "@/Redux/Features/cartSlice";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { baseApi } from "./api/baseApi";
 
 const createNoopStorage = () => {
   return {
@@ -39,13 +40,16 @@ const authPersistConfig = {
 const persistedReducer = persistReducer(authPersistConfig, cartReducer);
 
 const rootReducer = combineReducers({
+  [baseApi.reducerPath]: baseApi.reducer,
   cart: persistedReducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      baseApi.middleware
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

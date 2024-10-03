@@ -29,8 +29,8 @@ const Cart = () => {
     <div className="container mt-10 mx-auto">
       <div className="space-y-5 lg:mt-0 mt-5">
         {products.length ? (
-          <div className="flex justify-evenly">
-            <div className="w-2/3">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-12 pl-0 sm:pl-20 ">
+            <div className="w-full">
               {products.map((product: any) => (
                 <CartDetails
                   key={product.id}
